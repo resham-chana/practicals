@@ -11,7 +11,8 @@ output:
 
 install.packages("tidyverse")
 library(tidyverse)
-
+install.packages("forcats")
+library(forcats)
 films <- c(
   "A New Hope", "The Empire Strikes Back", "Return of the Jedi",  
   "The Phantom Menace", "Attack of the Clones", "Revenge of the Sith", 
@@ -21,17 +22,77 @@ films <- c(
 survey_results_2 <- 
   c("Rogue One", "A New Hope", "The Force Awakens", "A New Hope", "The Empire Strikes Back")
 
-x <- factor(z, levels = films)
+
+y <- c(films[4], films[5], films[6], films[10], films[1], films[2], films[3], films[7], films[8], films[9])
+
+x <- factor(survey_results_2, levels = y)
+
 
 z <- fct_expand(x, "Rogue One")
 
-y <- c(4,5,6,10,1,2,3,7,8,9)
 
 table(z)
 
-z1 <- fct_reorder(z, y)
 
-z1
 ```
 
-### 
+### 5.2
+
+```{r}
+
+months <- c("Feb", "March", "DEC", "Nov", "Mar", "Jul", "Jan", "Jul", "jul")
+
+month_names <- unique(c(month.abb , month.name, "DEC", "jul"))
+
+months_z <- factor(months, levels = month_names)
+
+months_z
+
+# get rid of the mispelled 
+
+x <- months[months %in% c(month.abb,month.name)]
+
+install.packages("janitor")
+library(janitor)
+
+make_clean_names(months)
+
+months_new <- c("January", "December", "March", "March", "December")
+
+a <- factor(months_new, month.name)
+as.numeric(a)
+
+```
+
+### Without manually calculating, find out how many seconds have passed between now and the time and day you were born (if you don’t know the time-of-day, pick 00:00:00 but make sure to use the right time zone).
+
+
+```{r}
+install.packages("lubridate")
+library(lubridate)
+
+today()
+
+now()
+
+dob <- ymd_hms("1996-07-28 06:00:00") 
+
+difftime(now(), dob, units = "secs")
+
+```
+###
+
+```{r}
+library(tidyverse)
+starwars_filter <- starwars %>%
+  filter(str_detect(name, "-"))
+
+
+starwars_filter_sub <- starwars %>% 
+  mutate(names2 = str_sub(name, start = 1L, end = 3L))
+
+starwars_filter_replace <- starwars %>%
+  mutate(names3 = str_replace(name, "2", "Two"))
+```
+
+
