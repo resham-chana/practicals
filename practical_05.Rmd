@@ -1,0 +1,37 @@
+---
+title: "R Notebook"
+author: "Resham Chana"
+output:
+  html_document:
+    toc: yes
+    df_print: paged
+---
+
+```{r}
+
+install.packages("tidyverse")
+library(tidyverse)
+
+films <- c(
+  "A New Hope", "The Empire Strikes Back", "Return of the Jedi",  
+  "The Phantom Menace", "Attack of the Clones", "Revenge of the Sith", 
+  "The Force Awakens", "The Last Jedi", "The Rise of Skywalker", "Rogue One"
+)
+
+survey_results_2 <- 
+  c("Rogue One", "A New Hope", "The Force Awakens", "A New Hope", "The Empire Strikes Back")
+
+x <- factor(z, levels = films)
+
+z <- fct_expand(x, "Rogue One")
+
+y <- c(4,5,6,10,1,2,3,7,8,9)
+
+table(z)
+
+z1 <- fct_reorder(z, y)
+
+z1
+```
+
+### 

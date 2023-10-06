@@ -1,0 +1,82 @@
+---
+title: "Practical 1"
+author: "Resham Chana"
+subtitle: "Exercise 1.1"
+output:
+  html_document:
+    toc: TRUE
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  comment="",
+  results = "hold"
+)
+```
+
+```{r, echo=FALSE, error = FALSE, resutls = "hide"}
+my_packages <- c(
+  "tidyverse", "here", "lubridate", "leaflet", "readxl", "XML",
+  "rmarkdown", "hexbin", "lintr", "styler", "gapminder", "gridExtra",
+  "hms", "RColorBrewer", "cowsay", "kableExtra", "janitor", "ggrepel"
+)
+install.packages(my_packages, repos = "http://cran.rstudio.com")
+library(tidyverse)
+library(here)
+```
+
+```{r}
+read_csv(here("data", "mcdonalds_menu.csv"))
+```
+
+![Cat image](../figures/cat.jpg)
+
+# Lists
+## Numbered list
+
+1. Item 1
+2. Item 2
+3. Item 3
+    
+## Bullet points
+
+* Item 1
+* Item 2
+
+## A list whose first level is numbered but whose second level is not
+
+1. Item 1
+2. Item 2
+3. Item 3
+    + Item 3a
+    + Item 3b
+    
+# Examples of text
+
+## Bold 
+
+__BOLD__
+
+## Italic Text
+
+_ITALICS_
+
+# Verbatim Code
+
+```{r, echo = TRUE}
+1 + 1
+```
+
+# Text with superscripts
+
+^superscript^
+
+# 1.2 Exercise
+
+
+```{r, echo =  TRUE, error = TRUE}
+x <- 42
+x
+log(-1)
+```
+

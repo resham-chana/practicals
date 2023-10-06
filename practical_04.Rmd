@@ -1,0 +1,125 @@
+---
+title: "R Notebook"
+author: "Resham Chana"
+output:
+  html_document:
+    toc: yes
+    df_print: paged
+---
+```{r}
+
+my_packages <- c(
+  "tidyverse", "here", "lubridate", "leaflet", "readxl", "XML",
+  "rmarkdown", "hexbin", "lintr", "styler", "gapminder", "gridExtra",
+  "hms", "RColorBrewer", "cowsay", "kableExtra", "janitor", "ggrepel"
+)
+install.packages("tidyverse")
+library(tidyverse)
+
+dplyr::glimpse(starwars)
+
+# summary(starwars)
+# try to use glimple and not view
+
+# a) Order the cases (rows) set alphabetically according to the character name.
+
+starwars %>%
+  dplyr::arrange(name)
+
+# b) Order the cases first by species and by character name (alphabetically) within each species.
+
+starwars %>%
+  dplyr::arrange(species, name)
+names(starwars)
+
+# c) Count the number of characters whose homeworld is Tatooine or not recorded in the data set. The code should produce a single number (not a data frame!).
+
+# tidyverse method
+
+starwars %>%
+  filter(homeworld == "Tatooine" | is.na(homeworld)) %>%
+  nrow
+
+# base r method
+
+sum(starwars$homeworld == "Tatooine", na.rm = TRUE)
+
+# d) Create a table which only includes the variable name and variables whose names include the string “color” without using the full column names or column positions.
+
+starwars %>% 
+  select(name,contains("color"))
+
+# e) Create a table which gives the average height [in cm] of female characters for each species. Don’t forget to ensure that all variables have appropriate names.
+
+
+starwars_avg <- starwars %>%
+  filter(sex == "female") %>% 
+  group_by(species) %>%
+  summarise(avg_fem_height = mean(height))
+
+# f) Create a table which counts the proportions of different eye colours within each species. Don’t forget to ensure that all variables have appropriate names.
+
+starwars_pro <- starwars %>%
+  group_by(species, eye_color) %>%
+  summarise(n=n()) %>%
+  mutate(freq = n/sum(n))
+
+# g) Display the range (difference between maximum and minimum) of the height of the characters within each species.
+
+starwars_range <- starwars %>%
+  group_by(species) %>%
+  summarise(max_height = max(height), min_height = min(height)) %>%
+  mutate(range = max_height - min_height)
+
+# h) Add a variable rel_height to the data frame which is such that rel_height represents the height of a character relative to 
+#the mean of the heights of all characters in the data set
+#the mean of heights of all characters of the same species in the data set.
+
+
+mean_height <- mean(starwars$height, na.rm = TRUE)
+
+
+starwars_rel <- starwars %>%
+  mutate(rel_height = height /mean_height)
+
+species_height <- starwars %>%
+  drop_na(height) %>%
+  group_by(species) %>%
+  summarise(mean_species_height = mean(height)) %>%
+  ungroup() 
+
+starwars_rel_species <- starwars_rel %>% 
+  left_join(species_height, by = "species") %>%
+  mutate(rel_species_height = height/mean_species_height)
+
+# i) Without typing in any column names,
+
+# create a new data frame which only contains the columns which are type character or type list.
+
+starwars %>%
+  select(where(is.character) | where(is.list))
+
+# ii) change all the columns which are character (except the column name) to factor.
+
+starwars %>%
+  mutate(across(where(is.character) & !name, as.factor))
+
+starwars_height_cat <- starwars %>%
+  mutate(height_cat = case_when(
+                        height <= 100 ~  "very short",
+                        ((height > 100) & (height <= 170)) ~ "short", 
+                        ((height > 170) & (height <= 200))   ~ "average",
+                        height > 200  ~ "tall"))
+
+         
+cut(starwars$height, breaks = c(0,100,170,200, Inf), labels = c("very short", "short", "average", "tall"))         
+
+starwars %>% slice(3:7)
+starwars %>% slice(-c(1,2))
+starwars %>% slice_head(n = 5)
+starwars %>% slice_tail(n = 5)
+
+head(starwars)
+
+```
+
