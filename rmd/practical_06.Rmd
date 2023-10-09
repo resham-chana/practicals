@@ -4,4 +4,8 @@ output: html_notebook
 ---
 
 ```{r, eval = FALSE}
+parse_double("1,5", locale = locale(decimal_mark = ","))
+
+parse_date("September 21, 2020 16:25:59", format = "%B %d, %Y h:m:s")
+
 ```
