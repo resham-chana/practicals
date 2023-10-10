@@ -4,8 +4,144 @@ output: html_notebook
 ---
 
 ```{r, eval = FALSE}
-parse_double("1,5", locale = locale(decimal_mark = ","))
-
-parse_date("September 21, 2020 16:25:59", format = "%B %d, %Y h:m:s")
+install.packages("tidyverse")
+install.packages("janitor")
+install.packages("here")
+install.packages("lubridate")
+library(here)
+library(tidyverse)
+library(janitor)
+library(lubridate)
 
 ```
+
+
+```{r, eval = FALSE}
+parse_double("1,5", locale = locale(decimal_mark = ","))
+
+parse_datetime("September 21, 2020 16:25:59", format = "%B %d, %Y %H:%M:%S")
+
+parse_number("€1.999,99", locale = locale(grouping_mark = ".", decimal_mark = ","))
+
+```
+
+### 6.2
+
+```{r, eval = FALSE}
+
+read_lines(here("data", "ramen_ratings.csv"), n_max = 4L) 
+
+ramen <- read_csv(here("data", "ramen_ratings.csv"))
+
+str(ramen) # each column is chr 
+
+# we dont have comma separated data we have data separated with ; and the first column states the name of the website
+
+ramen2 <- read_delim(file = here("data", "ramen_ratings.csv"), delim = ";", skip = 1)
+
+ramen2 <- ramen2 %>%
+  janitor::clean_names()
+
+# stars may be of type char because the numbers are separated by a comma not a decimal point.
+
+ramen2 <- ramen2 %>%
+  mutate(stars = parse_double(stars ,locale = locale(decimal_mark = ",")))
+
+# the parsing errors mean we have some NAs
+
+```
+###6.3
+
+```{r}
+market <- read_csv(here("data", "market_cap.csv"))
+
+market2 <- market %>%
+  pivot_longer(c("2014-12-31", "2015-12-31", "2016-12-31", "2017-12-31", "2018-12-31", "2019-12-31"), names_to = "date", values_to = "capital") %>%
+    mutate(date=format(as.Date(date, format = "%Y-%m-%d"), "%Y"))
+
+
+```
+### 6.4
+
+```{r}
+df_nontidy <- tibble(
+  ` ` = c("selfless", "selfish"), 
+  cats = c(4L, 19L), 
+  dogs = c(25L, 3L)
+)
+
+df_tidy <- df_nontidy %>%
+  pivot_longer(cols = c("cats","dogs"),
+               names_to = "animal",
+               values_to = "count") %>%
+  rename("character" = " ")
+
+
+
+```
+
+### 6.5
+
+```{r}
+df_tidy <- table1 %>%
+  mutate(
+    country = str_replace_all(country, c("Afghanistan" = "A", 
+                                         "Brazil" = "B", 
+                                         "China" = "C"))
+  ) %>%
+  mutate(across(c(cases, population), round, -3)) %>%
+  mutate(across(c(cases, population), as.integer))
+
+head(df_tidy)
+
+df_nontidy_1 <- df_tidy %>%
+  pivot_longer(cols = c("cases", "population"),
+               names_to = "type",
+               values_to = "count")
+
+head(df_nontidy_1)
+
+df_nontidy_2 <- df_tidy %>%
+  pivot_wider(names_from = year, 
+              values_from = c(cases, population))
+
+head(df_nontidy_2)
+
+```
+### 6.6
+
+```{r}
+
+
+df_nontidy_3 <- df_tidy %>%
+  separate(col = "year", into = c("century", "year"), sep = 2)
+
+head(df_nontidy_3)
+
+df_nontidy_4 <- df_tidy %>%
+  unite(col = "rate", c(cases, population), sep = "/")
+
+head(df_nontidy_4)
+
+
+```
+
+### 6.7
+
+```{r}
+
+df_missing_1 <- df_tidy
+df_missing_1[2, ] <- NA
+
+# df_missing_2 <- df_missing_1 %>% 
+#   complete(country,year,cases, population)
+
+# research complete
+
+df_missing_2 <- df_missing_1 %>% 
+  drop_na
+
+
+
+```
+

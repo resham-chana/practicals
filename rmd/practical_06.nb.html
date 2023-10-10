@@ -1754,9 +1754,152 @@ display: none;
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjpbImluc3RhbGwucGFja2FnZXMoXCJ0aWR5dmVyc2VcIikiLCJpbnN0YWxsLnBhY2thZ2VzKFwiamFuaXRvclwiKSIsImluc3RhbGwucGFja2FnZXMoXCJoZXJlXCIpIiwiaW5zdGFsbC5wYWNrYWdlcyhcImx1YnJpZGF0ZVwiKSIsImxpYnJhcnkoaGVyZSkiLCJsaWJyYXJ5KHRpZHl2ZXJzZSkiLCJsaWJyYXJ5KGphbml0b3IpIiwibGlicmFyeShsdWJyaWRhdGUpIl19 -->
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)
+install.packages(&quot;janitor&quot;)
+install.packages(&quot;here&quot;)
+install.packages(&quot;lubridate&quot;)
+library(here)
+library(tidyverse)
+library(janitor)
+library(lubridate)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjpbInBhcnNlX2RvdWJsZShcIjEsNVwiLCBsb2NhbGUgPSBsb2NhbGUoZGVjaW1hbF9tYXJrID0gXCIsXCIpKSIsIiIsInBhcnNlX2RhdGV0aW1lKFwiU2VwdGVtYmVyIDIxLCAyMDIwIDE2OjI1OjU5XCIsIGZvcm1hdCA9IFwiJUIgJWQsICVZICVIOiVNOiVTXCIpIiwiIiwicGFyc2VfbnVtYmVyKFwi4oKsMS45OTksOTlcIiwgbG9jYWxlID0gbG9jYWxlKGdyb3VwaW5nX21hcmsgPSBcIi5cIiwgZGVjaW1hbF9tYXJrID0gXCIsXCIpKSJdfQ== -->
+<pre class="r"><code>parse_double(&quot;1,5&quot;, locale = locale(decimal_mark = &quot;,&quot;))
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7ciwgZXZhbCA9IEZBTFNFfQ0KYGBg</div>
+parse_datetime(&quot;September 21, 2020 16:25:59&quot;, format = &quot;%B %d, %Y %H:%M:%S&quot;)
+
+parse_number(&quot;€1.999,99&quot;, locale = locale(grouping_mark = &quot;.&quot;, decimal_mark = &quot;,&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="section" class="section level3">
+<h3>6.2</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjpbInJlYWRfbGluZXMoaGVyZShcImRhdGFcIiwgXCJyYW1lbl9yYXRpbmdzLmNzdlwiKSwgbl9tYXggPSA0TCkgIiwiIiwicmFtZW4gPC0gcmVhZF9jc3YoaGVyZShcImRhdGFcIiwgXCJyYW1lbl9yYXRpbmdzLmNzdlwiKSkiLCIiLCJzdHIocmFtZW4pICMgZWFjaCBjb2x1bW4gaXMgY2hyICIsIiIsIiMgd2UgZG9udCBoYXZlIGNvbW1hIHNlcGFyYXRlZCBkYXRhIHdlIGhhdmUgZGF0YSBzZXBhcmF0ZWQgd2l0aCA7IGFuZCB0aGUgZmlyc3QgY29sdW1uIHN0YXRlcyB0aGUgbmFtZSBvZiB0aGUgd2Vic2l0ZSIsIiIsInJhbWVuMiA8LSByZWFkX2RlbGltKGZpbGUgPSBoZXJlKFwiZGF0YVwiLCBcInJhbWVuX3JhdGluZ3MuY3N2XCIpLCBkZWxpbSA9IFwiO1wiLCBza2lwID0gMSkiLCIiLCJyYW1lbjIgPC0gcmFtZW4yICU+JSIsIiAgamFuaXRvcjo6Y2xlYW5fbmFtZXMoKSIsIiIsIiMgc3RhcnMgbWF5IGJlIG9mIHR5cGUgY2hhciBiZWNhdXNlIHRoZSBudW1iZXJzIGFyZSBzZXBhcmF0ZWQgYnkgYSBjb21tYSBub3QgYSBkZWNpbWFsIHBvaW50LiIsIiIsInJhbWVuMiA8LSByYW1lbjIgJT4lIiwiICBtdXRhdGUoc3RhcnMgPSBwYXJzZV9kb3VibGUoc3RhcnMgLGxvY2FsZSA9IGxvY2FsZShkZWNpbWFsX21hcmsgPSBcIixcIikpKSIsIiIsIiMgdGhlIHBhcnNpbmcgZXJyb3JzIG1lYW4gd2UgaGF2ZSBzb21lIE5BcyJdfQ== -->
+<pre class="r"><code>read_lines(here(&quot;data&quot;, &quot;ramen_ratings.csv&quot;), n_max = 4L) 
+
+ramen &lt;- read_csv(here(&quot;data&quot;, &quot;ramen_ratings.csv&quot;))
+
+str(ramen) # each column is chr 
+
+# we dont have comma separated data we have data separated with ; and the first column states the name of the website
+
+ramen2 &lt;- read_delim(file = here(&quot;data&quot;, &quot;ramen_ratings.csv&quot;), delim = &quot;;&quot;, skip = 1)
+
+ramen2 &lt;- ramen2 %&gt;%
+  janitor::clean_names()
+
+# stars may be of type char because the numbers are separated by a comma not a decimal point.
+
+ramen2 &lt;- ramen2 %&gt;%
+  mutate(stars = parse_double(stars ,locale = locale(decimal_mark = &quot;,&quot;)))
+
+# the parsing errors mean we have some NAs</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>###6.3</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5tYXJrZXQyIDwtIG1hcmtldCAlPiVcbiAgcGl2b3RfbG9uZ2VyKGMoXCIyMDE0LTEyLTMxXCIsIFwiMjAxNS0xMi0zMVwiLCBcIjIwMTYtMTItMzFcIiwgXCIyMDE3LTEyLTMxXCIsIFwiMjAxOC0xMi0zMVwiLCBcIjIwMTktMTItMzFcIiksIG5hbWVzX3RvID0gXCJkYXRlXCIsIHZhbHVlc190byA9IFwiY2FwaXRhbFwiKSAlPiVcbiAgICBtdXRhdGUoZGF0ZT1mb3JtYXRzLkRhdGUoZGF0ZSwgXCIlWS0lbS0lZFwiKSwgXCIlWVwiKSBcblxuYGBgIn0= -->
+<pre class="r"><code>
+market2 &lt;- market %&gt;%
+  pivot_longer(c(&quot;2014-12-31&quot;, &quot;2015-12-31&quot;, &quot;2016-12-31&quot;, &quot;2017-12-31&quot;, &quot;2018-12-31&quot;, &quot;2019-12-31&quot;), names_to = &quot;date&quot;, values_to = &quot;capital&quot;) %&gt;%
+    mutate(date=formats.Date(date, &quot;%Y-%m-%d&quot;), &quot;%Y&quot;) 
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gYG11dGF0ZSgpYDpcbuKEuSBJbiBhcmd1bWVudDogYGRhdGUgPSBmb3JtYXRzLkRhdGUoZGF0ZSwgXCIlWS0lbS0lZFwiKWAuXG5DYXVzZWQgYnkgZXJyb3IgaW4gYGZvcm1hdHMuRGF0ZSgpYDpcbiEgY291bGQgbm90IGZpbmQgZnVuY3Rpb24gXCJmb3JtYXRzLkRhdGVcIlxuQmFja3RyYWNlOlxuIDEuIC4uLiAlPiUgbXV0YXRlKGRhdGUgPSBmb3JtYXRzLkRhdGUoZGF0ZSwgXCIlWS0lbS0lZFwiKSwgXCIlWVwiKVxuIDMuIGRwbHlyOjo6bXV0YXRlLmRhdGEuZnJhbWUoLiwgZGF0ZSA9IGZvcm1hdHMuRGF0ZShkYXRlLCBcIiVZLSVtLSVkXCIpLCBcIiVZXCIpXG4gNC4gZHBseXI6OjptdXRhdGVfY29scyguZGF0YSwgZHBseXJfcXVvc3VyZXMoLi4uKSwgYnkpXG4gNi4gZHBseXI6OjptdXRhdGVfY29sKGRvdHNbW2ldXSwgZGF0YSwgbWFzaywgbmV3X2NvbHVtbnMpXG4gNy4gbWFzayRldmFsX2FsbF9tdXRhdGUocXVvKVxuIDguIGRwbHlyIChsb2NhbCkgZXZhbCgpXG4ifQ== -->
+<pre><code>Error in `mutate()`:
+ℹ In argument: `date = formats.Date(date, &quot;%Y-%m-%d&quot;)`.
+Caused by error in `formats.Date()`:
+! could not find function &quot;formats.Date&quot;
+Backtrace:
+ 1. ... %&gt;% mutate(date = formats.Date(date, &quot;%Y-%m-%d&quot;), &quot;%Y&quot;)
+ 3. dplyr:::mutate.data.frame(., date = formats.Date(date, &quot;%Y-%m-%d&quot;), &quot;%Y&quot;)
+ 4. dplyr:::mutate_cols(.data, dplyr_quosures(...), by)
+ 6. dplyr:::mutate_col(dots[[i]], data, mask, new_columns)
+ 7. mask$eval_all_mutate(quo)
+ 8. dplyr (local) eval()</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="section-1" class="section level3">
+<h3>6.4</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfdGlkeSA8LSBkZl9ub250aWR5ICU+JVxuICBwaXZvdF9sb25nZXIoY29scyA9IGMoXCJjYXRzXCIsXCJkb2dzXCIpLFxuICAgICAgICAgICAgICAgbmFtZXNfdG8gPSBcImFuaW1hbFwiLFxuICAgICAgICAgICAgICAgdmFsdWVzX3RvID0gXCJjb3VudFwiKSAlPiVcbiAgcmVuYW1lKFwiIFwiID0gXCJjaGFyYWN0ZXJcIilcblxuYGBgIn0= -->
+<pre class="r"><code>df_tidy &lt;- df_nontidy %&gt;%
+  pivot_longer(cols = c(&quot;cats&quot;,&quot;dogs&quot;),
+               names_to = &quot;animal&quot;,
+               values_to = &quot;count&quot;) %&gt;%
+  rename(&quot; &quot; = &quot;character&quot;)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gYHJlbmFtZSgpYDpcbiEgQ2FuJ3QgcmVuYW1lIGNvbHVtbnMgdGhhdCBkb24ndCBleGlzdC5cbuKcliBDb2x1bW4gYGNoYXJhY3RlcmAgZG9lc24ndCBleGlzdC5cbkJhY2t0cmFjZTpcbiAxLiAuLi4gJT4lIHJlbmFtZShgIGAgPSBcImNoYXJhY3RlclwiKVxuIDMuIGRwbHlyOjo6cmVuYW1lLmRhdGEuZnJhbWUoLiwgYCBgID0gXCJjaGFyYWN0ZXJcIilcbiJ9 -->
+<pre><code>Error in `rename()`:
+! Can&#39;t rename columns that don&#39;t exist.
+✖ Column `character` doesn&#39;t exist.
+Backtrace:
+ 1. ... %&gt;% rename(` ` = &quot;character&quot;)
+ 3. dplyr:::rename.data.frame(., ` ` = &quot;character&quot;)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="section-2" class="section level3">
+<h3>6.5</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfbm9udGlkeV8yIDwtIGRmX3RpZHkgJT4lXG4gIHBpdm90X3dpZGVyKG5hbWVzX2Zyb20gPSBjKFwiY2FzZXNcIiwgXCJwb3B1bGF0aW9uXCIsIFwiMTk5OVwiLCBcIjIwMDBcIiksIFxuICAgICAgICAgICAgICB2YWx1ZXNfZnJvbSA9IGMoY2FzZXMsIHBvcHVsYXRpb24pKVxuXG5gYGAifQ== -->
+<pre class="r"><code>df_nontidy_2 &lt;- df_tidy %&gt;%
+  pivot_wider(names_from = c(&quot;cases&quot;, &quot;population&quot;, &quot;1999&quot;, &quot;2000&quot;), 
+              values_from = c(cases, population))
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gYHBpdm90X3dpZGVyKClgOlxuISBDYW4ndCBzdWJzZXQgY29sdW1ucyB0aGF0IGRvbid0IGV4aXN0Llxu4pyWIENvbHVtbiBgMTk5OWAgZG9lc24ndCBleGlzdC5cbkJhY2t0cmFjZTpcbiAxLiBkZl90aWR5ICU+JSAuLi5cbiAzLiB0aWR5cjo6OnBpdm90X3dpZGVyLmRhdGEuZnJhbWUoLi4uKVxuIn0= -->
+<pre><code>Error in `pivot_wider()`:
+! Can&#39;t subset columns that don&#39;t exist.
+✖ Column `1999` doesn&#39;t exist.
+Backtrace:
+ 1. df_tidy %&gt;% ...
+ 3. tidyr:::pivot_wider.data.frame(...)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="section-3" class="section level3">
+<h3>6.6</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="section-4" class="section level3">
+<h3>6.7</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5kZl9taXNzaW5nXzIgJT4lIFxuICBjb21wbGV0ZSgpXG5cbmBgYCJ9 -->
+<pre class="r"><code>
+df_missing_2 %&gt;% 
+  complete()
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IG9iamVjdCAnZGZfbWlzc2luZ18yJyBub3QgZm91bmRcbiJ9 -->
+<pre><code>Error: object &#39;df_missing_2&#39; not found</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7ciwgZXZhbCA9IEZBTFNFfQ0KaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIikNCmluc3RhbGwucGFja2FnZXMoImphbml0b3IiKQ0KaW5zdGFsbC5wYWNrYWdlcygiaGVyZSIpDQppbnN0YWxsLnBhY2thZ2VzKCJsdWJyaWRhdGUiKQ0KbGlicmFyeShoZXJlKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGphbml0b3IpDQpsaWJyYXJ5KGx1YnJpZGF0ZSkNCg0KYGBgDQoNCg0KYGBge3IsIGV2YWwgPSBGQUxTRX0NCnBhcnNlX2RvdWJsZSgiMSw1IiwgbG9jYWxlID0gbG9jYWxlKGRlY2ltYWxfbWFyayA9ICIsIikpDQoNCnBhcnNlX2RhdGV0aW1lKCJTZXB0ZW1iZXIgMjEsIDIwMjAgMTY6MjU6NTkiLCBmb3JtYXQgPSAiJUIgJWQsICVZICVIOiVNOiVTIikNCg0KcGFyc2VfbnVtYmVyKCLigqwxLjk5OSw5OSIsIGxvY2FsZSA9IGxvY2FsZShncm91cGluZ19tYXJrID0gIi4iLCBkZWNpbWFsX21hcmsgPSAiLCIpKQ0KDQpgYGANCg0KIyMjIDYuMg0KDQpgYGB7ciwgZXZhbCA9IEZBTFNFfQ0KDQpyZWFkX2xpbmVzKGhlcmUoImRhdGEiLCAicmFtZW5fcmF0aW5ncy5jc3YiKSwgbl9tYXggPSA0TCkgDQoNCnJhbWVuIDwtIHJlYWRfY3N2KGhlcmUoImRhdGEiLCAicmFtZW5fcmF0aW5ncy5jc3YiKSkNCg0Kc3RyKHJhbWVuKSAjIGVhY2ggY29sdW1uIGlzIGNociANCg0KIyB3ZSBkb250IGhhdmUgY29tbWEgc2VwYXJhdGVkIGRhdGEgd2UgaGF2ZSBkYXRhIHNlcGFyYXRlZCB3aXRoIDsgYW5kIHRoZSBmaXJzdCBjb2x1bW4gc3RhdGVzIHRoZSBuYW1lIG9mIHRoZSB3ZWJzaXRlDQoNCnJhbWVuMiA8LSByZWFkX2RlbGltKGZpbGUgPSBoZXJlKCJkYXRhIiwgInJhbWVuX3JhdGluZ3MuY3N2IiksIGRlbGltID0gIjsiLCBza2lwID0gMSkNCg0KcmFtZW4yIDwtIHJhbWVuMiAlPiUNCiAgamFuaXRvcjo6Y2xlYW5fbmFtZXMoKQ0KDQojIHN0YXJzIG1heSBiZSBvZiB0eXBlIGNoYXIgYmVjYXVzZSB0aGUgbnVtYmVycyBhcmUgc2VwYXJhdGVkIGJ5IGEgY29tbWEgbm90IGEgZGVjaW1hbCBwb2ludC4NCg0KcmFtZW4yIDwtIHJhbWVuMiAlPiUNCiAgbXV0YXRlKHN0YXJzID0gcGFyc2VfZG91YmxlKHN0YXJzICxsb2NhbGUgPSBsb2NhbGUoZGVjaW1hbF9tYXJrID0gIiwiKSkpDQoNCiMgdGhlIHBhcnNpbmcgZXJyb3JzIG1lYW4gd2UgaGF2ZSBzb21lIE5Bcw0KDQpgYGANCiMjIzYuMw0KDQpgYGB7cn0NCm1hcmtldCA8LSByZWFkX2NzdihoZXJlKCJkYXRhIiwgIm1hcmtldF9jYXAuY3N2IikpDQoNCm1hcmtldDIgPC0gbWFya2V0ICU+JQ0KICBwaXZvdF9sb25nZXIoYygiMjAxNC0xMi0zMSIsICIyMDE1LTEyLTMxIiwgIjIwMTYtMTItMzEiLCAiMjAxNy0xMi0zMSIsICIyMDE4LTEyLTMxIiwgIjIwMTktMTItMzEiKSwgbmFtZXNfdG8gPSAiZGF0ZSIsIHZhbHVlc190byA9ICJjYXBpdGFsIikgJT4lDQogICAgbXV0YXRlKGRhdGU9Zm9ybWF0KGFzLkRhdGUoZGF0ZSwgZm9ybWF0ID0gIiVZLSVtLSVkIiksICIlWSIpKQ0KDQoNCmBgYA0KIyMjIDYuNA0KDQpgYGB7cn0NCmRmX25vbnRpZHkgPC0gdGliYmxlKA0KICBgIGAgPSBjKCJzZWxmbGVzcyIsICJzZWxmaXNoIiksIA0KICBjYXRzID0gYyg0TCwgMTlMKSwgDQogIGRvZ3MgPSBjKDI1TCwgM0wpDQopDQoNCmRmX3RpZHkgPC0gZGZfbm9udGlkeSAlPiUNCiAgcGl2b3RfbG9uZ2VyKGNvbHMgPSBjKCJjYXRzIiwiZG9ncyIpLA0KICAgICAgICAgICAgICAgbmFtZXNfdG8gPSAiYW5pbWFsIiwNCiAgICAgICAgICAgICAgIHZhbHVlc190byA9ICJjb3VudCIpICU+JQ0KICByZW5hbWUoImNoYXJhY3RlciIgPSAiICIpDQoNCg0KDQpgYGANCg0KIyMjIDYuNQ0KDQpgYGB7cn0NCmRmX3RpZHkgPC0gdGFibGUxICU+JQ0KICBtdXRhdGUoDQogICAgY291bnRyeSA9IHN0cl9yZXBsYWNlX2FsbChjb3VudHJ5LCBjKCJBZmdoYW5pc3RhbiIgPSAiQSIsIA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiQnJhemlsIiA9ICJCIiwgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJDaGluYSIgPSAiQyIpKQ0KICApICU+JQ0KICBtdXRhdGUoYWNyb3NzKGMoY2FzZXMsIHBvcHVsYXRpb24pLCByb3VuZCwgLTMpKSAlPiUNCiAgbXV0YXRlKGFjcm9zcyhjKGNhc2VzLCBwb3B1bGF0aW9uKSwgYXMuaW50ZWdlcikpDQoNCmhlYWQoZGZfdGlkeSkNCg0KZGZfbm9udGlkeV8xIDwtIGRmX3RpZHkgJT4lDQogIHBpdm90X2xvbmdlcihjb2xzID0gYygiY2FzZXMiLCAicG9wdWxhdGlvbiIpLA0KICAgICAgICAgICAgICAgbmFtZXNfdG8gPSAidHlwZSIsDQogICAgICAgICAgICAgICB2YWx1ZXNfdG8gPSAiY291bnQiKQ0KDQpoZWFkKGRmX25vbnRpZHlfMSkNCg0KZGZfbm9udGlkeV8yIDwtIGRmX3RpZHkgJT4lDQogIHBpdm90X3dpZGVyKG5hbWVzX2Zyb20gPSB5ZWFyLCANCiAgICAgICAgICAgICAgdmFsdWVzX2Zyb20gPSBjKGNhc2VzLCBwb3B1bGF0aW9uKSkNCg0KaGVhZChkZl9ub250aWR5XzIpDQoNCmBgYA0KIyMjIDYuNg0KDQpgYGB7cn0NCg0KDQpkZl9ub250aWR5XzMgPC0gZGZfdGlkeSAlPiUNCiAgc2VwYXJhdGUoY29sID0gInllYXIiLCBpbnRvID0gYygiY2VudHVyeSIsICJ5ZWFyIiksIHNlcCA9IDIpDQoNCmhlYWQoZGZfbm9udGlkeV8zKQ0KDQpkZl9ub250aWR5XzQgPC0gZGZfdGlkeSAlPiUNCiAgdW5pdGUoY29sID0gInJhdGUiLCBjKGNhc2VzLCBwb3B1bGF0aW9uKSwgc2VwID0gIi8iKQ0KDQpoZWFkKGRmX25vbnRpZHlfNCkNCg0KDQpgYGANCg0KIyMjIDYuNw0KDQpgYGB7cn0NCg0KZGZfbWlzc2luZ18xIDwtIGRmX3RpZHkNCmRmX21pc3NpbmdfMVsyLCBdIDwtIE5BDQoNCiMgZGZfbWlzc2luZ18yIDwtIGRmX21pc3NpbmdfMSAlPiUgDQojICAgY29tcGxldGUoY291bnRyeSx5ZWFyLGNhc2VzLCBwb3B1bGF0aW9uKQ0KDQojIHJlc2VhcmNoIGNvbXBsZXRlDQoNCmRmX21pc3NpbmdfMiA8LSBkZl9taXNzaW5nXzEgJT4lIA0KICBkcm9wX25hDQoNCg0KDQpgYGANCg0K</div>
 
 
 
