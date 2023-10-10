@@ -2,3 +2,240 @@
 title: "R Notebook"
 output: html_notebook
 ---
+
+```{r}
+library("ggplot2")
+library("here") # for relative instead of absolute paths to, e.g., data files
+library("tidyverse") # includes ggplot2, dplyr, readr, tidyr, tibble and more
+library("lubridate") # for dealing with date and time objects
+library("ggrepel") # adds improved labeling compared to standard ggplot2
+library("gapminder") # a data set used as a running example
+install.packages("hrbrthemes")
+library(hrbrthemes)
+
+
+```
+
+### 7.1
+
+```{r echo = TRUE}
+
+glimpse(gapminder)
+
+
+```
+### 7.1 a i
+```{r}
+p <- gapminder %>%
+  filter(year == 2007) %>%
+  ggplot(aes(x = lifeExp)) +
+    geom_histogram() 
+#+
+#  facet_wrap(~continent)
+                    
+p
+
+```
+
+### 7.1 a ii
+```{r}
+p2 <- gapminder %>%
+  ggplot(aes(x = lifeExp, y = continent)) +
+    geom_boxplot() +
+    ggtitle("Box plot of Life Expectancy")
+
+p2
+```
+### 7.1 a iii
+
+```{r}
+p3 <- gapminder %>%
+  filter(country == "United Kingdom") %>%
+  ggplot(aes(x = year, y = lifeExp)) +
+  geom_line() +
+  ggtitle("line graph of life expectancy in the UK")
+
+p3
+
+```
+### 7.1 a iv
+```{r}
+
+p4 <- gapminder %>%
+  ggplot(aes( x = gdpPercap, y = lifeExp)) +
+  geom_point() +
+  ggtitle("scatter plot of gdp per cap and life expectancy")
+
+p4
+```
+
+### 7.1 b and c
+```{r}
+
+p5 <- gapminder %>%
+  filter(continent == "Asia", year == 2007) %>%
+  ggplot(aes(x = gdpPercap, y = reorder(country, gdpPercap))) +
+  geom_col()
+
+p5
+```
+### 7.1 d
+
+```{r}
+p6 <- gapminder %>% 
+  group_by(country, year) %>%
+  summarise(weighted_mean = weighted.mean(lifeExp, pop)) %>%
+  ggplot(aes(x = year, y = weighted_mean)) +
+  geom_line()
+
+```
+### 7.1 e
+
+```{r}
+
+p7a <- gapminder %>% 
+  group_by(continent, year) %>%
+  summarise(weighted_mean = weighted.mean(lifeExp, pop)) %>%
+  ggplot(aes(x = year, y = weighted_mean, group = continent)) +
+  geom_line()
+p7
+
+p7 <- gapminder %>% 
+  group_by(country, year) %>%
+  summarise(weighted_mean = weighted.mean(lifeExp, pop)) %>%
+  ggplot(aes(x = year, y = weighted_mean, group = country)) +
+  geom_line() 
+```
+### 7.1 f
+
+```{r}
+
+p8 <- gapminder %>% 
+  group_by(continent, year) %>%
+  summarise(weighted_mean = weighted.mean(lifeExp, pop)) %>%
+  ggplot(aes(x = year, y = weighted_mean, colour = continent)) +
+  geom_line()
+
+p8a <- gapminder %>% 
+  group_by(continent, year) %>%
+  summarise(mean_life = mean(lifeExp)) %>%
+  ggplot(aes(x = year, y = mean_life, colour = continent)) +
+  geom_line()
+
+
+```
+
+### 7.1 g
+
+```{r}
+
+p9 <- gapminder %>%
+  filter(year == 2007) %>%
+  ggplot(aes(x = log10(gdpPercap), y = lifeExp, colour = continent, size = pop)) +
+  geom_point()
+
+```
+
+### 7.1 h
+
+```{r}
+
+p10 <- gapminder %>%
+  ggplot(aes(x = log10(gdpPercap), y = lifeExp, colour = year)) +
+  geom_point()
+
+
+p10a <- gapminder %>%
+  ggplot(aes(x = log10(gdpPercap), y = lifeExp, colour = as.factor(year))) +
+  geom_point()
+
+p10b <- gapminder %>%
+  ggplot(aes(x = log10(gdpPercap), y = lifeExp, colour = as.ordered(year))) +
+  geom_point()
+
+
+```
+
+### 7.1 i
+
+```{r}
+ggplot(data = gapminder) +
+  geom_point(mapping = aes(x = log10(gdpPercap), y = lifeExp, shape = pop))
+
+#  A continuous variable cannot be mapped to the shape aesthetic
+
+```
+### 7.1 j
+
+```{r}
+p11 <- gapminder %>%
+  mutate(pop_in_bn = pop/1000000000) %>%
+  mutate(gdp_in_tn = gdpPercap*pop) %>%
+  ggplot(aes(x = year, y = pop_in_bn, fill = continent)) +
+  geom_col()
+
+p12 <- gapminder %>%
+  mutate(pop_in_bn = pop/1000000000) %>%
+  mutate(gdp_in_tn = gdpPercap*pop/1000000000000) %>%
+  ggplot(aes(x = year, y = gdp_in_tn, fill = continent)) +
+  geom_col(position = "dodge")
+
+```
+### 7.1 k
+
+```{r}
+
+# ASK
+
+p11a <- gapminder %>%
+  mutate(pop_in_bn = pop/1000000000) %>%
+  mutate(gdp_in_tn = gdpPercap*pop) %>%
+  ggplot(aes(x = year, y = pop_in_bn, fill = continent)) +
+  geom_col(position = position_fill())
+
+p12b <- gapminder %>%
+  mutate(pop_in_bn = pop/1000000000) %>%
+  mutate(gdp_in_tn = gdpPercap*pop/1000000000000) %>%
+  ggplot(aes(x = year, y = gdp_in_tn, fp12ill = continent)) +
+  geom_col(position = position_fill())
+```
+### 7.1 l
+
+The position would need to be dodge
+
+### 7.2
+
+
+```{r}
+p13 <- mpg %>%
+  group_by(class) %>%
+  summarise(n = n()) %>%
+  ggplot(aes(x = class, y = n)) +
+  geom_col()
+```
+
+### 7.3
+
+```{r}
+
+p14 <- mpg %>%
+  ggplot(aes(x = class, y = cty, fill = as.factor(year))) +
+  geom_boxplot()
+
+p15 <- mpg %>%
+  ggplot(aes(x = cty, colour = class, fill = class)) +
+  geom_density(adjust=1.5, alpha=0.4)
+  
+
+```
+
+### 7.4 
+
+```{r}
+ggplot(data = mpg) +
+  geom_freqpoly(binwidth =1,
+                mapping = aes(x = cty, colour = class))
+
+```
+
+
